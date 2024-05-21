@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center align-items-center  my-5" style="height: 98vh;">
+  <form #registerForm="ngForm" (ngSubmit)="registerFormControl(registerForm)" class="mx-5" style="width: 600px;">
+    <h1 style="font-weight: 500;" class="font-fredoka-important text-center pastel-dark-low2 my-5" style="color:rgb(27, 151, 173)">Bir Hesap Oluşturun</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger text-center my-3" *ngIf="error">
+                {{error}}
+            </div>
+        </div>
+        <div>
+            <div class="input-group col-lg-6 mb-4">
+                <input id="firstName" type="text" required ngModel name="firstName" placeholder="Ad" class="form-control bg-white border-md">
+            </div>
+        </div>
+        <div>
+            <div class="input-group col-lg-6 mb-4">
+                <input id="lastName" type="text" required ngModel name="lastName" placeholder="Soyad" class="form-control bg-white border-md">
+            </div>
+        </div>
+        <div>
+            <div class="input-group col-lg-6 mb-4">
+                <input id="email" type="email" email="email" required ngModel name="email" placeholder="Email Adresi" class="form-control bg-white border-md">
+            </div>
+        </div>
+        <div>
+            <div class="input-group col-lg-6 mb-4">
+                <input id="password" type="password" password="password" required minlength="8" ngModel name="password" placeholder="Parola" class="form-control bg-white border-md">
+            </div>
+        </div>
+        <div class="col-lg-12 mb-4">
+            <button type="submit" class="btn btn-success btn-block py-2" style="margin-left: 35%;background-color:rgb(27, 151, 173) ;"  [disabled]="registerForm.invalid">Hesabınızı oluşturun</button>
+        </div>
+
+        <div class="col-lg-12">
+            <p class="text-center text-muted font-weight-bold">Zaten Kayıtlı mısınız? <a routerLink="/login" class="text-success ml-2" style="cursor: pointer;">Giriş Yap</a></p>
+        </div>
+    </div>
+</form>
+  </div>

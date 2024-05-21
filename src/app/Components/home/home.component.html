@@ -1,0 +1,81 @@
+<div class="connectionDiv">
+  <div class="helloUser" *ngIf="isVisible && Users" @fadeInOutAnimation style="color: white; float: right; margin-right: 50px;">
+    Hoşgeldiniz {{Users.firstName}} {{Users.lastName}}
+  </div> 
+</div>
+
+
+<div class="mx-5 my-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-3 text-center">
+      <h2 style="color: #1d7385;">Aktif Sohberleriniz</h2>
+      <div id="plist" class="people-list">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color: #6cd8ee; border-top-right-radius: 0px; border-bottom-right-radius: 0px; cursor: pointer;">
+              <i class="fa fa-search" style="font-size: 25px; color: white;"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" placeholder="Search...">
+        </div>
+        <ul class="list-unstyled chat-list mt-2 mb-0">
+          <li class="clearfix" *ngFor="let chat of userChats" (click)="selectUser(chat,chat.chatId)">
+            <img src="assets/1.jpg" alt="avatar">
+            <div class="about">
+              <div class="name">Sohbet Adı: {{chat.chatName}}</div>
+              <div class="" style="color: #686868;">Açıklama: {{chat.chatDescription}}</div>                                            
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="btn btn-outline-info my-3 text-center" (click)="openOnlineUserActivePage()">Online Kişiler</button>
+    </div>
+
+    <!-- Main -->
+    <div class="col-8" style="border-left: 1px solid #e1f0f3;">
+      <div *ngIf="selectedChat">
+        <div class="card mb-3" style="max-width: 540px; border: none;">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="/assets/1.jpg" class="img-fluid rounded-start" width="100px">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h3 class="card-title">{{selectedChat.chatName}}</h3>
+                <div class="status"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr style="color: #6cd8ee;"> 
+        <div class="chat-history" #messageList style="height: 600px; display: flex; flex-direction: column; overflow-y: auto;">
+          <ul class="m-b-0" id="messageUl" style="flex-grow: 1;">
+            <li class="clearfix"
+            [ngClass]="{'my-message': isMyClient(message.userId), 'other-message': !isMyClient(message.userId) }"
+            *ngFor="let message of chatMessageArray">
+            <div  >{{message.text}}</div> 
+              <div class="message-data">
+                <span class="message-data-time ">{{message.postDate | date:'medium'}}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="p-4">
+          <div class="input-group mb-0">
+            <input type="text" [(ngModel)]="newMessage" class="form-control" placeholder="Metni buraya girin..." style="height: 50px;">
+            <div>
+              <button class="message-Button" (click)="sendMessage(selectedChat.chatId)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="48" fill="currentColor" class="bi bi-send-check" style="color: #e1f0f3;" viewBox="0 0 16 16">
+                  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z"/>
+                  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>

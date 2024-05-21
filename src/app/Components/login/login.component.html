@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center align-items-center my-5" style="height: 98vh;">
+  <form #loginForm="ngForm" (ngSubmit)="loginFormControl(loginForm)"> 
+  
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form1Example13">Email Adresi</label>
+      <input id="email" type="email" email="email" required ngModel name="email" placeholder="Email Adresi" class="form-control form-control-lg">
+      
+    </div>
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form1Example23">Şifre</label>
+       <input id="password" type="password" password="password" required minlength="8"  ngModel  name="password" placeholder="Şifre" class="form-control form-control-lg">
+      </div>
+     <!-- Submit button -->
+     <div class="d-flex justify-content-around align-items-center mb-4">
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="loginForm.invalid">Giriş Yap</button>
+     
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      Kayıtlı Değil misiniz?<a routerLink="/register">Kayıt Ol</a>
+    </div>
+  </form>
+
+</div>

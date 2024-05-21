@@ -1,0 +1,6 @@
+<div class="p-3 mb-2  text-white d-flex flex-row-reverse" style="background-color: #9eccd6;">
+
+  <a class="text-white mx-3 navbar-buttons" *ngIf="!isAuthenticated" routerLink="/register">Register Page</a>
+  <a class="text-white mx-3 navbar-buttons" *ngIf="!isAuthenticated" routerLink="/login">Login Page</a>
+  <a class="text-white mx-3 navbar-buttons" *ngIf="isAuthenticated" routerLink="/register" (click)="logOut()">LogOut</a>
+</div>

@@ -1,0 +1,15 @@
+.icon-close{
+    color:red;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-right: 10px;
+    right: 0px;
+    position: absolute;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.icon-close:hover{
+    color:rgb(172, 48, 48);
+}
+

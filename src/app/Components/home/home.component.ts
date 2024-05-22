@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     window.addEventListener('beforeunload', () => this.disconnect());
     this.getChats();
 
+    // anlık mesajlar behavvioyur subjectten buraya gelip burada çekiyorız
     this.messageSubscription = this.signalrService.newMessageSubject.subscribe((message) => {
       if (message) {
         this.chatMessageArray.push(message,);
@@ -142,10 +143,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.signalrService.connectConfigureConnectionId(this.Users.id);
   }
 
-  // this.messages = []; // Eski mesajları temizleyin burayı açıcan en son 
+  // kullanıcıyı
   selectUser(chat: ChatModel,chatid:number): void {
     this.selectedChat = chat;
-    // Mesajları yükleyin
     this.signalrService.invokeChatMessage(chatid);
     this.messages = []; // Eski mesajları temizleyin
     this.signalrService.listenChatMessage()

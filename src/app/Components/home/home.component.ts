@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     window.addEventListener('beforeunload', () => this.disconnect());
     this.getChats();
 
-    // anlık mesajlar behavvioyur subjectten buraya gelip burada çekiyorız
+    // anlık mesajlar behavvioyur subjectten buraya gelip buradan chatMessageArray'a atıyoruz
     this.messageSubscription = this.signalrService.newMessageSubject.subscribe((message) => {
       if (message) {
         this.chatMessageArray.push(message,);

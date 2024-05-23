@@ -1,5 +1,5 @@
 <div class="connectionDiv">
-  <div class="helloUser" *ngIf="isVisible && Users" @fadeInOutAnimation style="color: white; float: right; margin-right: 50px;">
+  <div class="helloUser" *ngIf="isVisible && Users" @fadeInOutAnimation style="color: white; float: right; margin-right: 50px;z-index: 5;">
     Hoşgeldiniz {{Users.firstName}} {{Users.lastName}}
   </div> 
 </div>
@@ -20,10 +20,10 @@
           <input type="text" class="form-control" placeholder="Search...">
         </div>
         <ul class="list-unstyled chat-list mt-2 mb-0">
-          <li class="clearfix" *ngFor="let chat of userChats" (click)="selectUser(chat,chat.chatId)">
-            <img src="assets/1.jpg" alt="avatar">
+          <li class="clearfix" *ngFor="let chat of userChats" (click)="selectUserChat(chat,chat.chatId)" >
+            <img src="assets/4.jpg" alt="avatar">
             <div class="about">
-              <div class="name">Sohbet Adı: {{chat.chatName}}</div>
+              <div class="name" style="text-transform: capitalize;">Sohbet Adı: {{chat.chatName}}</div>
               <div class="" style="color: #686868;">Açıklama: {{chat.chatDescription}}</div>                                            
             </div>
           </li>
@@ -35,20 +35,19 @@
     <!-- Main -->
     <div class="col-8" style="border-left: 1px solid #e1f0f3;">
       <div *ngIf="selectedChat">
-        <div class="card mb-3" style="max-width: 540px; border: none;">
+        <div class="card mb-3" style="max-width: 100%; border: none;">
           <div class="row">
             <div class="col-md-2">
-              <img src="/assets/1.jpg" class="img-fluid rounded-start" width="100px">
+              <img src="/assets/4.jpg" class="img-fluid rounded-start" width="100px">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h3 class="card-title">{{selectedChat.chatName}}</h3>
-                <div class="status"></div>
+                <h3 class="card-title" style="text-transform: capitalize;">{{selectedChat.chatName}}</h3>
+                <div class="status">{{selectedChat.chatDescription}}</div>
               </div>
             </div>
           </div>
         </div>
-        <hr style="color: #6cd8ee;"> 
         <div class="chat-history" #messageList style="height: 600px; display: flex; flex-direction: column; overflow-y: auto;">
           <ul class="m-b-0" id="messageUl" style="flex-grow: 1;">
             <li class="clearfix"

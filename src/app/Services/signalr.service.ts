@@ -4,18 +4,20 @@ import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { UserModel } from '../Models/UserModel';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { MessageModel } from '../Models/messageModel';
+import { ListenMessageModel } from '../Models/listenMessageModel';
 @Injectable({
   providedIn: 'root',
 })
 export class SignalrService {
   private hubConnection: signalR.HubConnection | undefined;
-  onlineUsersSubject: BehaviorSubject<UserModel[]> = new BehaviorSubject<
-    UserModel[]
-  >([]);
+  public onlineUsersSubject: BehaviorSubject<UserModel[]> = new BehaviorSubject< UserModel[]>([]);
   public newMessageSubject = new BehaviorSubject<MessageModel | null>(null);
+  private newChatIdSubject = new BehaviorSubject<number | null>(null);
+  public newChatId = this.newChatIdSubject.asObservable();
   public chatMessageSubject = new BehaviorSubject<MessageModel[]>([]);
+  newChatId$: any;
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -61,7 +63,6 @@ export class SignalrService {
   // Mesaj Göndermek için
    sendMessage(chatId:number,message: MessageModel) {
     this.hubConnection?.invoke('SendMessage', chatId,message)
-    
       .then(() => console.log('Mesaj başarıyla gönderildi'))
       .catch((err) => console.error('Mesaj gönderme hatası : ', err));
   }
@@ -77,22 +78,28 @@ export class SignalrService {
         this.hubConnection?.off('chatLastMessage');
       }, 100);
     });
-
-    // this.hubConnection?.on('chatLastMessage',message =>{
-    //   this.chatMessageSubject.next(message);
-    //   setTimeout(() => {
-    //     this.hubConnection?.off('chatLastMessage');
-    //   }, 1000);
-    // })
   }
 
   listenMessage(): void {
-    this.hubConnection?.on('receivedMessage',message =>{
+    this.hubConnection?.on('receivedMessage',(message,chatId) =>{
+       console.log(chatId);
       this.newMessageSubject.next(message);
-      
+      this.newChatIdSubject.next(chatId);
     })
   }
 
+  // listenMessage(): Observable<ListenMessageModel> {
+  //   return new Observable<ListenMessageModel>(observer => {
+  //     this.hubConnection?.on('receivedMessage', (message: MessageModel, chatId: number) => {
+  //       console.log(message, chatId);
+  //       let result: ListenMessageModel = {
+  //         message: message,
+  //         chatId: chatId,
+  //       };
+  //       observer.next(result);
+  //     });
+  //   });
+  // }
 
   listenHub() {
     this.hubConnection?.on('getListActiveUsers', (users) => {

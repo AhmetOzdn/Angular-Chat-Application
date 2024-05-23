@@ -6,7 +6,7 @@
         </div>
         <div *ngIf="!isEqualUserId(user.id)" class="col-md-8" style="margin-top: 30px;">
             <div class="card-body">
-                <h3 class="card-title">{{user.firstName}} {{user.lastName}}</h3>
+                <h3 class="card-title" style="text-transform: capitalize;">{{user.firstName}} {{user.lastName}}</h3>
                 <div class=" status mb-2"> <i class="fa fa-circle" style="color: rgb(62, 182, 62);"></i> online</div>
                 <button (click)="createChat(user.id)" class="btn btn-sm btn-outline-info" style="color: #616161;">Sohbeti Başlat!</button>
             </div>
